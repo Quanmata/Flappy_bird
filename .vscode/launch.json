@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Flappy Bird",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/flappyBird.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}
