@@ -4,7 +4,7 @@ from pygame.locals import *
 WINDOWWIDTH = 400
 WINDOWHEIGHT = 600
 
-BIRDWIDTH = 40
+BIRDWIDTH = 20
 BIRDHEIGHT = 35
 G = 0.5
 SPEEDFLY = -8
@@ -34,15 +34,27 @@ class Bird():
         self.y = (WINDOWHEIGHT- self.height)/2
         self.speed = 0
         self.suface = BIRDIMG
+        self.angle = 0
 
     def draw(self):
-        DISPLAYSURF.blit(self.suface, (int(self.x), int(self.y)))
+        rotated_bird = pygame.transform.rotate(self.suface, self.angle)
+        new_rect = rotated_bird.get_rect(center=(self.x + self.width / 2, self.y + self.height / 2))
+        DISPLAYSURF.blit(rotated_bird, new_rect.topleft)
     
     def update(self, mouseClick):
-        self.y += self.speed + 0.5*G
+        self.y += self.speed + 0.5 * G
         self.speed += G
-        if mouseClick == True:
+        
+        if mouseClick:
             self.speed = SPEEDFLY
+            self.angle = 30
+        else:
+            if self.speed > 0:
+                self.angle = -30 
+            elif self.speed < 0:
+                self.angle = 30
+            else:
+                self.angle = 0 
 
 class Columns():
     def __init__(self):
